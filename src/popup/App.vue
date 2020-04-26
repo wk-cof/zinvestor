@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>Zillow Investor Assistant</h1>
+    <h3>Zillow Investor Assistant</h3>
     Activates automatically when you are on any Zillow.com page
+
     <stats
       :price="unitDetails.price"
       :hoa="unitDetails.hoa"
@@ -14,17 +15,10 @@
 
 <script>
 import Stats from "./Stats.vue";
+import { BModal, VBModal, BButton } from 'bootstrap-vue';
 const bg = chrome.extension.getBackgroundPage();
 export default {
   data () {
-    // Object.keys(bg.houseInfo).forEach(function (url) {
-    //   const div = document.createElement('div');
-    //   div.textContent = `${url}: ${JSON.stringify(bg.houseInfo[url], "", "  ")}`;
-    //   document.body.appendChild(div);
-    // });
-
-    debugger;
-
     return {
       unitDetails: {
         price: bg.houseInfo.price || 0,
@@ -36,12 +30,17 @@ export default {
     }
   },
   components: {
-   Stats
+   Stats,
+   BButton
  },
 }
 </script>
 
 <style lang="scss" scoped>
+  //Be sure to @import or define your custom variable values before including Bootstrap SCSS (bootstrap.scss),
+  // and include BootstrapVue SCSS (bootstrap-vue.scss) after that to ensure variables are set up correctly.
+  @import 'node_modules/bootstrap/scss/bootstrap';
+  @import 'node_modules/bootstrap-vue/src/index.scss';
 p {
   font-size: 20px;
 }
