@@ -1,19 +1,19 @@
 // extract
-const value = extractInt(document.body.querySelector("span.ds-value").innerHTML);
+const price = extractInt(document.body.querySelector("span.ds-value").innerHTML);
 const hoa = getValue("span", "HOA fees");
 const taxes = getValue("span", "Property taxes");
-const insurance = getValue("span", "Home insurance");
+const homeInsurance = getValue("span", "Home insurance");
 const address = getAddress();
 
 //
-const annualExpenses = (hoa + taxes + insurance) * 12;
+const annualExpenses = (hoa + taxes + homeInsurance) * 12;
 
 chrome.runtime.sendMessage({
   url: window.location.href,
-  value,
+  price,
   hoa,
   taxes,
-  insurance,
+  homeInsurance,
   annualExpenses,
   address
 })
@@ -37,25 +37,25 @@ function getValue(selector, prefixString) {
 }
 
 function extractInt(stringValue) {
+  const withoutCommas = removePartOfString(stringValue, ",", "");
   const numbers = RegExp(/(\d+)/i);
-  const stringifiedNumber = stringValue.match(numbers)[0];
+  const stringifiedNumber = withoutCommas.match(numbers)[0];
   return parseInt(stringifiedNumber);
 }
 
 function getAddress() {
   const addressParent = document.getElementsByClassName("ds-address-container")[0];
   let address = addressParent.children[0].innerHTML + addressParent.children[1].innerHTML;
-  debugger;
   address = removePartOfString(address, "<!-- -->");
   address = removePartOfString(address, "&nbsp;");
   return address;
 }
 
-function removePartOfString(input, partToRemove) {
+function removePartOfString(input, partToRemove, replacer = " ") {
   const index = input.indexOf(partToRemove);
   if (index != -1) {
     const length = partToRemove.length;
-    return input.substr(0, index) + " " + input.substr(index + length, foo.length);
+    return input.substr(0, index) + replacer + input.substr(index + length, input.length);
   }
   return input;
 }

@@ -1,7 +1,7 @@
 window.houseInfo = {};
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  window.houseInfo[request.url] = request;
+  window.houseInfo = request;
 });
 
 chrome.browserAction.onClicked.addListener(function (tab) {
