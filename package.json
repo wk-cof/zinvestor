@@ -1,7 +1,7 @@
 {
-  "name": "new-tab-page",
+  "name": "zInvestor",
   "version": "1.0.0",
-  "description": "A Vue.js web extension",
+  "description": "Zillow Extension calculator",
   "author": "Mikhail Gorbachev <gorbachevma@gmail.com>",
   "engines": {
     "node": ">=10"
